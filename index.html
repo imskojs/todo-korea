@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularFire - TodoMVC</title>
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+</head>
+<body>
+<section id="todoapp" ng-controller="TodoController">
+  <header id="header">
+    <h1>할것들</h1>
+    <form id="todo-form" 
+      ng-submit="addTodo()"
+    >
+      <input id="new-todo" placeholder="해야할일들을 적어주세요!" 
+        autofocus
+        ng-model="newTodo"
+      >
+    </form>
+  </header>
+  <section id="main" 
+    ng-show="total"
+  >
+    <input id="toggle-all" type="checkbox" 
+      ng-model="allChecked" 
+      ng-click="markAll(allChecked)"
+    >
+    <ul id="todo-list">
+      <li 
+        ng-repeat="todo in todos" 
+        ng-class="{completed: todo.completed}"
+      >
+        <div class="view">
+          <input class="toggle" type="checkbox" 
+            ng-model="todo.completed" 
+            ng-change="todos.$save(todo)"
+          >
+          <label>{{todo.title}}</label>
+          <button class="destroy" ng-click="removeTodo(todo)"></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <footer id="footer" ng-show="total !== 0">
+    <span id="todo-count"><strong>{{remaining}}</strong> 개 남음 </span>
+  </footer>
+</section> 
+<script src="//cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angularfire/dist/angularfire.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/todoController.js"></script>
+</body>
+</html>
